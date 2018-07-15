@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
-import {Map, GoogleApiWrapper} from 'google-maps-react';
+import {Map, Marker, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 
 
 class MapContainer extends Component {
   render() {
-    let {initialCenter, zoom} = this.props
-    console.log(initialCenter, zoom)
+    let { initialCenter, zoom, places } = this.props
+    places = places.map(place => {
+      return {
+          id: place.id,
+          title: place.name,
+          location: {
+            lat: place.location.lat, 
+            lng: place.location.lng
+          }
+        
+      }
+    })
+
+    console.log(initialCenter, places)
     return (
       <Map 
         google = {this.props.google} 
         initialCenter = {initialCenter} 
         zoom = {zoom}> 
+
+        {places.map(place => <Marker key = {place.id} position = {place.location} name = {place.title} /> )}
+        
       </Map>
     );
   }

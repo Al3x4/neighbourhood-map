@@ -30,15 +30,15 @@ class App extends Component {
     )
     .then( response => response.json())
     .then(response => response.response.venues)
-    .then(places => {this.setState({places})
-  console.log(this.state.places)})
+    .then(places => this.setState({places}))
   }
 
   render() {
     return (
       <MapContainer 
         initialCenter = {this.state.initialCenter} 
-        zoom = {this.state.zoom} />
+        zoom = {this.state.zoom} 
+        places = {this.state.places} />
     );
   }
 }
