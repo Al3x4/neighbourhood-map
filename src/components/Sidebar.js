@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-
+import Listing from './Listing'
 
 class Sidebar extends Component{
     state = {
         query : '', 
-        listings : []
     }
 
     updateQuery = (inputedQuery) => {
@@ -21,10 +20,6 @@ class Sidebar extends Component{
         places = places.filter(place => place.venue.name.includes(query))
     }
 
-    
-    
-
-
     return (
         <div className="sidebar">
             <div className="search-listings-bar">
@@ -37,13 +32,7 @@ class Sidebar extends Component{
             </div>
             <div className="locations">
                 <ul>
-                    {places.map(location => {
-                        return (
-                            <li key={location.venue.id}>
-                                {location.venue.name}
-                            </li>		
-                        )
-                    })}
+                    {places.map(location => <Listing location={location}/>)}
                 </ul>
             </div>
         </div>
