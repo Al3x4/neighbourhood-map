@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import MapContainer from './components/MapContainer';
-
+import Sidebar from './components/Sidebar';
 
 class App extends Component {
   state = {
@@ -39,10 +39,14 @@ class App extends Component {
 
   render() {
     return (
-      <MapContainer 
-        initialCenter = {this.state.initialCenter} 
-        zoom = {this.state.zoom} 
-        places = {this.state.places} />
+      <div>
+        <MapContainer 
+          initialCenter = {this.state.initialCenter} 
+          zoom = {this.state.zoom} 
+          places = {this.state.places} />
+        
+        <Sidebar places = {this.state.places}/>
+      </div>
     );
   }
 }
