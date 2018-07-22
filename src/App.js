@@ -45,7 +45,7 @@ class App extends Component {
           zoom = {this.state.zoom} 
           places = {this.state.places} />
         
-        <Sidebar places = {this.state.places}/>
+        <Sidebar places = {this.state.places} auth = {this.state.forsquareAuth}/>
       </div>
     );
   }

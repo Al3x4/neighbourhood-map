@@ -52,12 +52,13 @@ class MapContainer extends Component {
         bounds = {bounds}
         onClick={this.onMapClicked}> 
 
-        {places.map(place => <Marker key = {place.id} position = {place.location} title = {place.name}  onClick={this.onMarkerClick}/>)}
+        {places.map(place => <Marker key = {place.name} position = {place.location} title = {place.name}  onClick={this.onMarkerClick}/>)}
         {places.map(place => {
           return(
             <InfoWindow
-              marker={this.state.activeMarker}
-              visible={this.state.showingInfoWindow}>
+              key = {this.state.selectedPlace.title}
+              marker = {this.state.activeMarker}
+              visible = {this.state.showingInfoWindow}>
                 <div>
                   <h1>{this.state.selectedPlace.title}</h1>
                 </div>

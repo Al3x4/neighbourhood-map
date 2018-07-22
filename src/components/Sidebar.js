@@ -32,7 +32,7 @@ class Sidebar extends Component{
             </div>
             <div className="locations">
                 <ul>
-                    {places.map(location => <Listing location={location}/>)}
+                    {places.map(location => <Listing key={location.venue.id} location={location} auth = {this.props.auth}/>)}
                 </ul>
             </div>
         </div>

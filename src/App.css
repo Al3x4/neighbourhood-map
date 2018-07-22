@@ -26,4 +26,20 @@
 
 .locations ul {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.listing {
+  padding: 10px;
+  margin: 20px;
+}
+
+.listing:hover {
+  box-shadow: 0px 3px 7px -7px rgba(0,0,0,0.64);
+  transform:scale(1.01);
+}
+
+.listing:nth-child(even) {
+  background: #a2a2a2;
 }
