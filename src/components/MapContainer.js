@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 
 class MapContainer extends Component {
   state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
+    markers : [],
+    //infowindow: new this.props.google.maps.InfoWindow(),
   }
  
   initMap(){
     const google = this.props.google
-    this.map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        })
+    this.map = new google.maps.Map(document.getElementById('map'), this.props.config)
+    this.addMarkers()
   }
 
   componentDidMount(){
@@ -22,9 +19,33 @@ class MapContainer extends Component {
 
 
 
+  addMarkers = () => {
+    const google = this.props.google
+    let places = this.props.places.map(place => place.venue)
+    console.log(places)
+
+    const bounds = new google.maps.LatLngBounds()
+
+    places.forEach(place => {
+      
+      const marker = new google.maps.Marker({
+        position: {lat: place.location.lat, lng: place.location.lng},
+        map: this.map,
+        title: place.name
+      })
+
+      this.setState((state) => ({
+        markers: [...state.markers, marker]
+      }))
+     bounds.extend(marker.position)
+    })
+    this.map.fitBounds(bounds)
+  }
+
 
 
   render() {
+
  
     return (
       <div id="map">

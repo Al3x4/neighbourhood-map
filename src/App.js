@@ -21,12 +21,11 @@ class App extends Component {
   }
 
   //
-  componentDidMount() {
+  componentWillMount() {
     this.getBars()
   }
 
   getBars() {
-    console.log(`https://api.foursquare.com/v2/venues/explore?ll=${this.state.initialCenter.lat},${this.state.initialCenter.lng}&radius=1000&v=20180701&client_id=${this.state.forsquareAuth.client_id}&client_secret=${this.state.forsquareAuth.client_secret}`)
     fetch(
       `https://api.foursquare.com/v2/venues/explore?ll=${this.state.initialCenter.lat},${this.state.initialCenter.lng}&radius=2000&v=20180701&client_id=${this.state.forsquareAuth.client_id}&client_secret=${this.state.forsquareAuth.client_secret}`
     )
@@ -39,12 +38,26 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Sidebar places = {this.state.places} auth = {this.state.forsquareAuth}/>
-        <MapContainer places = {this.state.places} google = {this.props.google} />      
-      </div>
-    );
+    if (this.state.places[0]) {
+      return (
+        <div>
+          <MapContainer places = {this.state.places} google = {this.props.google} config = {{
+            center: this.state.initialCenter,
+            zoom: this.state.zoom,
+            mapTypeId: 'roadmap'
+
+          }}/>   
+          <Sidebar places = {this.state.places} auth = {this.state.forsquareAuth}/>
+             
+        </div>
+      )
+    } else {
+        return (
+        <div>Please Wait</div>
+      )
+    }
+
+  
   }
 }
 
