@@ -17,7 +17,7 @@ class Sidebar extends Component{
     if (query) {
         //is there is a match, filter.
         //TODO: rewrite this with REGEX
-        places = places.filter(place => place.venue.name.includes(query))
+        places = places.filter(place => place.venue.name.toUpperCase().includes(query.toUpperCase()))
     }
 
     return (

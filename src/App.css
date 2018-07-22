@@ -10,6 +10,7 @@
   left:0;
   top:0;
   background: #ffffff;
+  overflow-y: scroll;
 }
 
 .search-listings-bar {
