@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { GoogleApiWrapper } from 'google-maps-react'
 import './App.css';
 
 import MapContainer from './components/MapContainer';
@@ -33,22 +34,20 @@ class App extends Component {
     .then(response => {
       console.log(response.response.groups[0].items);
       return response.response.groups[0].items ? response.response.groups[0].items : []})
-    .then(places => this.setState({places}))
+    .then(places => {this.setState({places})})
 
   }
 
   render() {
     return (
       <div>
-        <MapContainer 
-          initialCenter = {this.state.initialCenter} 
-          zoom = {this.state.zoom} 
-          places = {this.state.places} />
-        
         <Sidebar places = {this.state.places} auth = {this.state.forsquareAuth}/>
+        <MapContainer places = {this.state.places} google = {this.props.google} />      
       </div>
     );
   }
 }
 
-export default App
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyBGvikmN6Urac_NbXkw3KPspDBbBfgvL7I'
+})(App)

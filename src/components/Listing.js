@@ -23,8 +23,8 @@ class Listing extends Component {
             <div className="listing">
                 <h3>{this.props.location.venue.name}</h3>
                 <img src={this.props.location.venue.categories[0].icon.prefix+'bg_'+32+this.props.location.venue.categories[0].icon.suffix} alt={this.props.location.venue.name}/>
-                <p>{this.props.location.venue.categories[0].name}</p>
-                <p>{this.props.location.venue.location.formattedAddress.join(', ')}</p>
+                <p className="category">{this.props.location.venue.categories[0].name}</p>
+                <p className="address">{this.props.location.venue.location.formattedAddress.join(', ')}</p>
 
             </div>
         )
