@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 class MapContainer extends Component {
   state = {
     markers : [],
-    //infowindow: new this.props.google.maps.InfoWindow(),
+    infowindow: new this.props.google.maps.InfoWindow(),
+
+
   }
  
   initMap(){
@@ -16,14 +18,24 @@ class MapContainer extends Component {
     this.initMap()
   }
 
-
-
+  componentDidUpdate(prevProps){
+     if (this.props.filteredPlaces !== prevProps.filteredPlaces) {
+      this.state.markers.forEach(marker => marker.setVisible(false))
+      this.addMarkers()
+    }
+  }
 
   addMarkers = () => {
     const google = this.props.google
-    let places = this.props.places.map(place => place.venue)
-    console.log(places)
-
+    let infowindow = this.state.infowindow
+    let places = []
+    let markers =[]
+    if (this.props.filteredPlaces[0]) {
+      places = this.props.filteredPlaces
+    } else {
+      places = this.props.places
+    }
+    console.log('places for markers are', places)
     const bounds = new google.maps.LatLngBounds()
 
     places.forEach(place => {
@@ -34,19 +46,37 @@ class MapContainer extends Component {
         title: place.name
       })
 
-      this.setState((state) => ({
-        markers: [...state.markers, marker]
-      }))
+      marker.addListener('click', () => {
+        this.populateInfoWindow(marker, infowindow)
+      })
+
+      markers.push(marker)
      bounds.extend(marker.position)
     })
     this.map.fitBounds(bounds)
+    this.setState((state) => ({
+        markers : markers
+      }))
   }
 
+  populateInfoWindow = (marker, infowindow) => {
+    const defaultIcon = marker.getIcon()
+    const {highlightedIcon, markers} = this.state
+    // Check to make sure the infowindow is not already opened on this marker.
+    if (infowindow.marker !== marker) {
+      infowindow.marker = marker
+      infowindow.setContent(`<h3>${marker.title}</h3>`)
+      infowindow.open(this.map, marker)
+      // Make sure the marker property is cleared if the infowindow is closed.
+      infowindow.addListener('closeclick', function () {
+        infowindow.marker = null
+      })
+    }
+  }
 
 
   render() {
 
- 
     return (
       <div id="map">
         loading map...

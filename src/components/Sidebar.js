@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Listing from './Listing'
 
 class Sidebar extends Component{
@@ -17,22 +18,27 @@ class Sidebar extends Component{
     if (query) {
         //is there is a match, filter.
         //TODO: rewrite this with REGEX
-        places = places.filter(place => place.venue.name.toUpperCase().includes(query.toUpperCase()))
+        places = places.filter(place => place.name.toUpperCase().includes(query.toUpperCase()))
     }
+    
+    this.props.filterPlaces(places)
 
     return (
         <div className="sidebar">
             <div className="search-listings-bar">
+                
                 <input 
                     type="text" 
                     placeholder="Filter list"
                     value = {query} 
                     onChange = {(event) => this.updateQuery(event.target.value)}
-                />   
+                /> 
+               
+                  
             </div>
             <div className="locations">
                 <ul>
-                    {places.map(location => <Listing key={location.venue.id} location={location} auth = {this.props.auth}/>)}
+                    {places.map(location => <Listing key={location.id} location={location} auth = {this.props.auth}/>)}
                 </ul>
             </div>
         </div>
