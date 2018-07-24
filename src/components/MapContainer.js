@@ -4,8 +4,6 @@ class MapContainer extends Component {
   state = {
     markers : [],
     infowindow: new this.props.google.maps.InfoWindow(),
-
-
   }
  
   initMap(){
@@ -19,10 +17,19 @@ class MapContainer extends Component {
   }
 
   componentDidUpdate(prevProps){
+    //show only markers filtered from the sidebar
      if (this.props.filteredPlaces !== prevProps.filteredPlaces) {
       this.state.markers.forEach(marker => marker.setVisible(false))
       this.addMarkers()
     }
+    //highlight hovered marker
+    if(this.props.hoverVenue !== prevProps.hoverVenue) {
+      let hoverMarker = this.state.markers.find(marker => marker.title === this.props.hoverVenue)
+      this.populateInfoWindow(hoverMarker, this.state.infowindow)
+    }
+
+
+
   }
 
   addMarkers = () => {
@@ -30,12 +37,13 @@ class MapContainer extends Component {
     let infowindow = this.state.infowindow
     let places = []
     let markers =[]
+    //only display markers for filtered location if there's a filtered locations list
     if (this.props.filteredPlaces[0]) {
       places = this.props.filteredPlaces
     } else {
       places = this.props.places
     }
-    console.log('places for markers are', places)
+    
     const bounds = new google.maps.LatLngBounds()
 
     places.forEach(place => {

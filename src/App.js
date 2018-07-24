@@ -17,7 +17,8 @@ class App extends Component {
       client_secret:'SASVAIXLAW2T2MAKE4VSRSHGRGUWJSRMJZOPECEKYIQAZJYH'
     }, 
     places:[],
-    filteredPlaces:[]
+    filteredPlaces:[], 
+    hoverVenue:{}
 
   }
 
@@ -43,23 +44,34 @@ class App extends Component {
 
   setFilteredPlaces = (filteredData) => {
     if (filteredData.length !== this.state.filteredPlaces.length){
-      console.log('state is ', this.state.filteredPlaces,' and filtered data is ', filteredData)
       this.setState({filteredPlaces: filteredData})
     }
     
   }
 
+  highLightMarker(listing){
+    //save the hovered listing name in state
+    if ([...listing.classList].includes('listing')){
+      let venue = listing.firstChild.innerText
+      this.setState({hoverVenue:venue})
+    }
+    
+    
+    
+  }
+
   render() {
+    
     if (this.state.places[0]) {
       return (
         <div>
-          <MapContainer filteredPlaces = {this.state.filteredPlaces} places = {this.state.places} google = {this.props.google} config = {{
+          <MapContainer hoverVenue = {this.state.hoverVenue} filteredPlaces = {this.state.filteredPlaces} places = {this.state.places} google = {this.props.google} config = {{
             center: this.state.initialCenter,
             zoom: this.state.zoom,
             mapTypeId: 'roadmap'
 
           }}/>   
-          <Sidebar  places = {this.state.places} auth = {this.state.forsquareAuth} filterPlaces = {this.setFilteredPlaces}/>
+          <Sidebar  places = {this.state.places} auth = {this.state.forsquareAuth} filterPlaces = {this.setFilteredPlaces} flag = {this.highLightMarker.bind(this)}/>
              
         </div>
       )
