@@ -37,13 +37,13 @@ class Sidebar extends Component{
                
                   
             </div>
-            <div className="forsquare">
-                
-            </div>
             <div className="locations">
                 <ul>
                     {places.map(location => <Listing key = {location.id} location = {location} auth = {this.props.auth} flag={this.props.flag}/>)}
                 </ul>
+            </div>
+            <div className="forsquare">
+                
             </div>
         </div>
     )

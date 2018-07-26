@@ -59,8 +59,17 @@ class App extends Component {
       this.setState({hoverVenue:venue})
     }
     
-    
-    
+  }
+
+  showSidebar(){
+    let button = document.querySelector('.showSidebar')
+    document.querySelector('.sidebar').classList.toggle('open')
+    button.classList.toggle('move')
+    if([...button.classList].includes('move')) {
+      button.innerText = '<<'
+    } else {
+      button.innerText = '>>'
+    }
   }
 
   render() {
@@ -68,15 +77,18 @@ class App extends Component {
     if (this.state.places[0]) {
       return (
         <div>
+          <button className="showSidebar" onClick={this.showSidebar}>
+            >>
+          </button>
+
           <Sidebar places = {this.state.places} auth = {this.state.forsquareAuth} filterPlaces = {this.setFilteredPlaces} flag = {this.highLightMarker.bind(this)}/>
           <MapContainer hoverVenue = {this.state.hoverVenue} filteredPlaces = {this.state.filteredPlaces} places = {this.state.places} google = {this.props.google} config = {{
             center: this.state.initialCenter,
             zoom: this.state.zoom,
             mapTypeId: 'roadmap'
 
-          }}/>  
+          }}/> 
 
-          
              
         </div>
       )
