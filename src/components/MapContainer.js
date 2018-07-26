@@ -17,6 +17,7 @@ class MapContainer extends Component {
   }
 
   componentDidUpdate(prevProps){
+    const google = this.props.google
     //show only markers filtered from the sidebar
      if (this.props.filteredPlaces !== prevProps.filteredPlaces) {
       this.state.markers.forEach(marker => marker.setVisible(false))
@@ -26,6 +27,10 @@ class MapContainer extends Component {
     if(this.props.hoverVenue !== prevProps.hoverVenue) {
       let hoverMarker = this.state.markers.find(marker => marker.title === this.props.hoverVenue)
       this.populateInfoWindow(hoverMarker, this.state.infowindow)
+      hoverMarker.setAnimation(google.maps.Animation.BOUNCE)
+      setTimeout(() => {
+        hoverMarker.setAnimation(null)
+      }, 500)
     }
 
 
