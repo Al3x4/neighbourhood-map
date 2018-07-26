@@ -10,7 +10,13 @@ class MapContainer extends Component {
     const google = this.props.google
     this.map = new google.maps.Map(document.getElementById('map'), this.props.config)
     this.addMarkers()
+    //error handling for google maps
+    window.gm_authFailure = () => {
+      alert('Google maps failed to load!');
+    }
   }
+
+
 
   componentDidMount(){
     this.initMap()
@@ -74,45 +80,33 @@ class MapContainer extends Component {
   populateInfoWindow = (marker, infowindow) => {
     const {highlightedIcon, markers} = this.state
     const google = this.props.google
-    // Check to make sure the infowindow is not already opened on this marker.
+        
+    infowindow.marker = marker
+    infowindow.setContent('<div>' + marker.title + '</div><div id="pano">Streetview Loading</div>')
+    infowindow.open(this.map, marker)
+    infowindow.addListener('closeclick', function () {
+      infowindow.marker = null
+    })
+
+    //Show streetview in infowindow
+    let sw = new google.maps.StreetViewService()
+    let panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'))
     
-      infowindow.setContent('<div>' + marker.title + '</div>')
-      infowindow.marker = marker
-      
-      // Make sure the marker property is cleared if the infowindow is closed.
-      infowindow.addListener('closeclick', function () {
-        infowindow.marker = null
-      })
+    sw.getPanorama({location: marker.position, radius: 50}, (results, status) => {
+      if (status === 'OK') {
 
-      
-
-      //showing location in infowindow
-      let sw = new google.maps.StreetViewService()
-
-      infowindow.setContent('<div>' + marker.title + '</div><div id="pano">Street View Loading</div>')
-      let panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'))
-      sw.getPanorama({location: marker.position, radius: 50}, (results, status) => {
-        if (status === 'OK') {
-
-          let heading = google.maps.geometry.spherical.computeHeading(results.location.latLng, marker.position)
-          panorama.setPano(results.location.pano);
-          panorama.setPov({
-              heading: heading,
-              pitch: 0
-            });
-          panorama.setVisible(true)
-          
-
-        } else {
-          infowindow.setContent('<div>' + marker.title + '</div>' +
-            '<div>No Street View Found</div>')
-        }
-      })
-
-      // Open the infowindow on the correct marker.
-      infowindow.open(this.map, marker)
-    
-
+        let heading = google.maps.geometry.spherical.computeHeading(results.location.latLng, marker.position)
+        panorama.setPano(results.location.pano);
+        panorama.setPov({
+            heading: heading,
+            pitch: 0
+          });
+        panorama.setVisible(true)
+      } else {
+        infowindow.setContent('<div>' + marker.title + '</div>' +
+          '<div>No Street View Found</div>')
+      }
+    })
   }
   
 
