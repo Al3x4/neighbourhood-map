@@ -33,11 +33,17 @@ class App extends Component {
     )
     .then(response => response.json())
     .then(response => {
-      return response.response.groups[0].items ? response.response.groups[0].items : []})
+      if (response.meta.code === 200) {
+        console.log(response)
+        return response.response.groups[0].items
+      } else {
+        return [{venue: 'no locations'}]
+      }
+    })
     .then(response => {
-
       let places = response.map(place => place.venue);
       this.setState({places})
+      console.log(this.state.places)
     })
 
   }
@@ -73,8 +79,8 @@ class App extends Component {
   }
 
   render() {
-    
-    if (this.state.places[0]) {
+    //if all goes well
+    if (this.state.places[0] && this.state.places[0] !== 'no locations') {
       return (
         <div>
           <button className="showSidebar" onClick={this.showSidebar}>
@@ -86,15 +92,24 @@ class App extends Component {
             center: this.state.initialCenter,
             zoom: this.state.zoom,
             mapTypeId: 'roadmap'
-
           }}/> 
 
              
         </div>
       )
-    } else {
+    //if there's an error with fetching locations
+    } else if (this.state.places[0] === 'no locations') {
         return (
-        <div>Please Wait</div>
+        <div>     
+          <div className='message'>UNABLE TO FIND LOCATIONS</div>
+        </div>
+      )
+
+    } else {
+    //until places get fetched, show a waiting message
+      return (
+        
+        <p className='message'>Loading...</p> 
       )
     }
 
