@@ -25,16 +25,20 @@ class Sidebar extends Component{
 
     return (
         <div className="sidebar">
-            <div className="search-listings-bar">
+            <div className="search-listings-bar" >
                 
                 <input 
                     type="text" 
-                    placeholder="Filter list"
+                    placeholder="Filter list by venue name"
                     value = {query} 
                     onChange = {(event) => this.updateQuery(event.target.value)}
+                    
                 /> 
                
                   
+            </div>
+            <div className="forsquare">
+                
             </div>
             <div className="locations">
                 <ul>

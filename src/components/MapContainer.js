@@ -107,8 +107,6 @@ class MapContainer extends Component {
         }
       })
 
-      
-
       // Open the infowindow on the correct marker.
       infowindow.open(this.map, marker)
     }

@@ -18,6 +18,8 @@ p {
   margin-top: 10px;
 }
 
+
+
 .sidebar {
   position : absolute;
   z-index: 2;
@@ -27,6 +29,14 @@ p {
   top:0;
   background: #ffffff;
   overflow-y: scroll;
+}
+
+.forsquare {
+  background: url('./img/powered-by-foursquare-grey.png');
+  height: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 15px;
 }
 
 .search-listings-bar {
@@ -41,6 +51,11 @@ p {
   padding-left: 10px;
 }
 
+.search-listings-bar input:focus {
+  border: 2px solid #4b96f3;
+  box-shadow: 0px 3px 7px -7px rgba(0,0,0,0.64);
+}
+
 .locations ul {
   list-style-type: none;
   margin: 0;
@@ -51,6 +66,11 @@ p {
   padding: 10px;
   margin: 20px;
   background: #f2f5f0;
+  text-align: left;
+  border: none;
+  width: 90%;
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 .listing:hover {

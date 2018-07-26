@@ -54,6 +54,9 @@ class App extends Component {
     if ([...listing.classList].includes('listing')){
       let venue = listing.firstChild.innerText
       this.setState({hoverVenue:venue})
+    } else {
+      let venue = listing.parentElement.firstChild.innerText
+      this.setState({hoverVenue:venue})
     }
     
     
@@ -65,13 +68,15 @@ class App extends Component {
     if (this.state.places[0]) {
       return (
         <div>
+          <Sidebar places = {this.state.places} auth = {this.state.forsquareAuth} filterPlaces = {this.setFilteredPlaces} flag = {this.highLightMarker.bind(this)}/>
           <MapContainer hoverVenue = {this.state.hoverVenue} filteredPlaces = {this.state.filteredPlaces} places = {this.state.places} google = {this.props.google} config = {{
             center: this.state.initialCenter,
             zoom: this.state.zoom,
             mapTypeId: 'roadmap'
 
-          }}/>   
-          <Sidebar  places = {this.state.places} auth = {this.state.forsquareAuth} filterPlaces = {this.setFilteredPlaces} flag = {this.highLightMarker.bind(this)}/>
+          }}/>  
+
+          
              
         </div>
       )
