@@ -28,6 +28,7 @@ class Sidebar extends Component{
             <div className="search-listings-bar" >
                 
                 <input 
+                    aria-label="Filter list"
                     type="text" 
                     placeholder="Filter list by venue name"
                     value = {query} 
