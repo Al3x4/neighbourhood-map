@@ -23,7 +23,7 @@ class MapContainer extends Component {
       this.state.markers.forEach(marker => marker.setVisible(false))
       this.addMarkers()
     }
-    //highlight hovered marker
+    //animate hovered marker
     if(this.props.hoverVenue !== prevProps.hoverVenue) {
       let hoverMarker = this.state.markers.find(marker => marker.title === this.props.hoverVenue)
       this.populateInfoWindow(hoverMarker, this.state.infowindow)
@@ -32,9 +32,6 @@ class MapContainer extends Component {
         hoverMarker.setAnimation(null)
       }, 500)
     }
-
-
-
   }
 
   addMarkers = () => {
@@ -78,8 +75,8 @@ class MapContainer extends Component {
     const {highlightedIcon, markers} = this.state
     const google = this.props.google
     // Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker !== marker) {
-
+    
+      infowindow.setContent('<div>' + marker.title + '</div>')
       infowindow.marker = marker
       
       // Make sure the marker property is cleared if the infowindow is closed.
@@ -87,13 +84,13 @@ class MapContainer extends Component {
         infowindow.marker = null
       })
 
-      infowindow.setContent('<div>' + marker.title + '</div><div id="pano">Street View Loading</div>')
-      let panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'))
+      
 
-      //code for showing location in infowindow
-
+      //showing location in infowindow
       let sw = new google.maps.StreetViewService()
 
+      infowindow.setContent('<div>' + marker.title + '</div><div id="pano">Street View Loading</div>')
+      let panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'))
       sw.getPanorama({location: marker.position, radius: 50}, (results, status) => {
         if (status === 'OK') {
 
@@ -114,7 +111,8 @@ class MapContainer extends Component {
 
       // Open the infowindow on the correct marker.
       infowindow.open(this.map, marker)
-    }
+    
+
   }
   
 
