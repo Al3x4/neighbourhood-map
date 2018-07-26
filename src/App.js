@@ -66,7 +66,7 @@ class App extends Component {
     document.querySelector('.sidebar').classList.toggle('open')
     button.classList.toggle('move')
     if([...button.classList].includes('move')) {
-      button.innerText = '<<'
+      button.innerText = '×'
     } else {
       button.innerText = '>>'
     }

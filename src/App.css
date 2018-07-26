@@ -8,7 +8,7 @@ p {
 
 #map {
   height: 100vh;
-  width: calc(100% - 400px);
+  width: calc(100% - 300px);
   position: absolute!important;
   overflow: hidden;
   right: 0;
@@ -23,7 +23,7 @@ p {
 .sidebar {
   position : absolute;
   z-index: 2;
-  width: 400px;
+  width: 300px;
   height: 100%;
   left:0;
   top:0;
@@ -96,6 +96,9 @@ p {
 .showSidebar {
   display: none;
 }
+.showSidebar:hover {
+  background: #306178
+}
 
 @media screen and (max-width: 950px) {
   #map {
@@ -103,7 +106,7 @@ p {
   }
 
   .sidebar {
-    left: -400px;
+    left: -300px;
   }
 
   .showSidebar {
@@ -125,6 +128,7 @@ p {
     left: 0;
   }
   .move{
-    left: 399px;
+    left: 260px;
+    z-index: 3;
   }
 }
