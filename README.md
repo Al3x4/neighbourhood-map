@@ -14,4 +14,4 @@ A google maps React app that loads a list of key venues around Wimbledon, London
 * Navigate to `localhost:3000`
 
 ## create-react-app
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) and uses [Forsquare Places API](https://developer.foursquare.com/places-api) and [Goggle Maps API](https://developers.google.com/maps/documentation). 
