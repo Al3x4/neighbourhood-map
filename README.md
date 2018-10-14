@@ -1,7 +1,7 @@
 # Front-End Web Developer Nanodegree Program
 ## Project 8 - My Neighbourhood Map with React
 
-A google maps React app that loads a list of key venues around Wimbledon, London. The user can fiter the locations by name. Clickng a location listing will open the location's infowindow with streetview. 
+A Google Maps React app that loads a list of key venues around Wimbledon, London. The user can filter the locations by name. Clicking a location listing will open the location's info window with Streetview.
 
 ## Getting Started
 ### Pre-requisites
